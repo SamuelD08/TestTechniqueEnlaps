@@ -61,8 +61,20 @@ for (let i = 0; i < 5; i++) {
     scene.add(bat)
 }
 
+// Voiture
+const voiture = new THREE.Mesh(
+    new THREE.BoxGeometry(0.5, 0.5),
+    new THREE.MeshStandardMaterial({
+        color: 0xff0000
+    })
+);
+voiture.position.z = 10
+voiture.position.y = 0.25
+voiture.position.x = 1
+
 // Ajouts
 scene.add(soleil);
+scene.add(voiture)
 
 //////////////////// CREATION DES Lumières /////////////////////
 // Ambiance
