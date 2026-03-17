@@ -16,16 +16,20 @@ const renderer = new THREE.WebGLRenderer();
 renderer.setSize(900, 800);
 document.body.append(renderer.domElement);
 
-
+//////////////////// CREATION DES Textures /////////////////////
+const textureLoader = new THREE.TextureLoader();
+const routeTexture = textureLoader.load('./textures/Road.jpg');
 
 //////////////////// CREATION DES FORMES /////////////////////
 
 // Sol
-const solGeometry = new THREE.PlaneGeometry(1, 1);
-const solMaterial = new THREE.MeshBasicMaterial({
-    color: 0x00ff00
+const solGeometry = new THREE.PlaneGeometry(5, 5);
+const solMaterial = new THREE.MeshStandardMaterial({
+    map: routeTexture
 });
 const sol = new THREE.Mesh(solGeometry, solMaterial);
+sol.rotation.x = -Math.PI/2;
+sol.position.x = 2;
 
 // Ajouts
 scene.add(sol)
@@ -39,6 +43,7 @@ const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
 
 // Ajouts
 scene.add(ambientLight);
+scene.add(directionalLight)
 
 
 
