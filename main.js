@@ -1,4 +1,5 @@
-import * as THREE from 'https://unpkg.com/three@0.160.0/build/three.module.js';
+import * as THREE from 'three';
+import { OrbitControls } from 'OrbitControls'
 
 // Création de la scene
 const scene = new THREE.Scene();
@@ -46,5 +47,15 @@ scene.add(ambientLight);
 scene.add(directionalLight)
 
 
+//////////////////// CREATION DES CONTROLES /////////////////////
+const controls = new OrbitControls(camera, renderer.domElement);
+controls.update();
+function animate() {
+    requestAnimationFrame(animate);
+    controls.update();
+    renderer.render( scene, camera );
+}
+
 
 renderer.render(scene, camera);
+animate()
