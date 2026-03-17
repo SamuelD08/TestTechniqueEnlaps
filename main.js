@@ -87,12 +87,26 @@ const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
 scene.add(ambientLight);
 scene.add(directionalLight)
 
+let avance = true
 
 //////////////////// CREATION DES CONTROLES /////////////////////
 const controls = new OrbitControls(camera, renderer.domElement);
 controls.update();
 function animate() {
     requestAnimationFrame(animate);
+
+    // Animation de la voiture
+    if (voiture.position.z > 3 && avance) {
+        voiture.position.z -= 0.05
+    } else if (voiture.position.z < 10) {
+        avance = false
+        voiture.position.z += 0.05
+    } else {
+        avance = true;
+    }
+
+
+
     controls.update();
     renderer.render( scene, camera );
 }
