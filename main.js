@@ -25,13 +25,17 @@ const batimentTexture = textureLoader.load('./textures/batiment.jpeg');
 //////////////////// CREATION DES FORMES /////////////////////
 
 // Sol
-const solGeometry = new THREE.PlaneGeometry(5, 5);
-const solMaterial = new THREE.MeshStandardMaterial({
-    map: routeTexture
-});
-const sol = new THREE.Mesh(solGeometry, solMaterial);
-sol.rotation.x = -Math.PI/2;
-sol.position.x = 0;
+for (let i = 0; i < 5 ; i++) {
+    const solGeometry = new THREE.PlaneGeometry(5, 5);
+    const solMaterial = new THREE.MeshStandardMaterial({
+        map: routeTexture
+    });
+    const sol = new THREE.Mesh(solGeometry, solMaterial);
+    sol.rotation.x = -Math.PI/2;
+    sol.position.z = i*5 - 10;
+    scene.add(sol)
+}
+
 
 // Soleil
 const soleilGeometry = new THREE.SphereGeometry();
@@ -58,9 +62,7 @@ for (let i = 0; i < 5; i++) {
 }
 
 // Ajouts
-scene.add(sol)
 scene.add(soleil);
-// scene.add(batiment)
 
 //////////////////// CREATION DES Lumières /////////////////////
 // Ambiance
