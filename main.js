@@ -98,6 +98,15 @@ renderer.shadowMap.enabled = true;
 directionalLight.castShadow = true;
 voiture.castShadow = true;
 
+//////////////////// AJOUT SKY Simplifiée /////////////////////
+const skyGeometry = new THREE.SphereGeometry(100, 32, 32);
+const skyMaterial = new THREE.MeshBasicMaterial({
+    map: new THREE.TextureLoader().load('./textures/sky.jpg'),
+    side: THREE.BackSide
+});
+const sky = new THREE.Mesh(skyGeometry, skyMaterial)
+scene.add(sky)
+
 
 
 //////////////////// CREATION DES CONTROLES /////////////////////
