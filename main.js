@@ -20,6 +20,7 @@ document.body.append(renderer.domElement);
 //////////////////// CREATION DES Textures /////////////////////
 const textureLoader = new THREE.TextureLoader();
 const routeTexture = textureLoader.load('./textures/Road.jpg');
+const batimentTexture = textureLoader.load('./textures/batiment.jpeg');
 
 //////////////////// CREATION DES FORMES /////////////////////
 
@@ -41,11 +42,25 @@ const soleilMaterial = new THREE.MeshPhongMaterial({
 
 const soleil = new THREE.Mesh(soleilGeometry, soleilMaterial);
 soleil.position.y = 10
+soleil.position.x = -4;
 
-scene.add(soleil);
+
+// Batiment
+for (let i = 0; i < 5; i++) {
+    const bat = new THREE.Mesh(
+            new THREE.BoxGeometry(2, 2, 2),
+            new THREE.MeshStandardMaterial({
+                map: batimentTexture
+            })
+        );
+    bat.position.y = 2*i + 1
+    scene.add(bat)
+}
 
 // Ajouts
 scene.add(sol)
+scene.add(soleil);
+// scene.add(batiment)
 
 //////////////////// CREATION DES Lumières /////////////////////
 // Ambiance
