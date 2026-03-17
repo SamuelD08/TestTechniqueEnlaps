@@ -9,7 +9,7 @@ const camera = new THREE.PerspectiveCamera(
 );
 
 camera.position.z = 20;
-camera.position.y = 10;
+camera.position.y = 20;
 camera.position.x = 10;
 
 // Création du renderer
@@ -29,7 +29,8 @@ const batimentTexture = textureLoader.load('./textures/batiment.jpeg');
 for (let i = 0; i < 5 ; i++) {
     const solGeometry = new THREE.PlaneGeometry(5, 5);
     const solMaterial = new THREE.MeshStandardMaterial({
-        map: routeTexture
+        map: routeTexture,
+        side: THREE.DoubleSide
     });
     const sol = new THREE.Mesh(solGeometry, solMaterial);
     sol.rotation.x = -Math.PI/2;
@@ -60,7 +61,7 @@ for (let i = 0; i < 5; i++) {
                 map: batimentTexture
             })
         );
-    bat.position.y = 2*i + 1
+    bat.position.y = 2*i + 1.01
     bat.castShadow = true;
     scene.add(bat)
 }
@@ -107,7 +108,25 @@ const skyMaterial = new THREE.MeshBasicMaterial({
 const sky = new THREE.Mesh(skyGeometry, skyMaterial)
 scene.add(sky)
 
+//////////////////// Création nuages /////////////////////
+const nuages = []
+for (let i = 0; i < 10; i++) {
+    const nuage = new THREE.Mesh(
+            new THREE.SphereGeometry(Math.random()*3),
+            new THREE.MeshStandardMaterial({
+                color: 0xffffff,
+                transparent: true,
+                opacity: 0.8
+            })
+        );
+    nuage.position.x = Math.random() * 20 - 10;
+    nuage.position.y = Math.random() * 7 + 7;
+    nuage.position.z = Math.random() * 20 - 10;
 
+    nuage.rotation.z = Math.random() * Math.PI*2
+    nuages.push(nuage)
+    scene.add(nuage)
+}
 
 //////////////////// CREATION DES CONTROLES /////////////////////
 let avance = true
@@ -126,6 +145,13 @@ function animate() {
         avance = true;
     }
 
+    // Animation nuage
+    nuages.forEach((nuage) => {
+        nuage.position.x += 0.01;
+        if (nuage.position.x > 10) {
+            nuage.position.x = -10
+        }
+    });
 
 
     controls.update();
