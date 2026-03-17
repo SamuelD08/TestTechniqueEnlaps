@@ -8,9 +8,9 @@ const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(
 );
 
-camera.position.z = 10;
-camera.position.y = 2;
-camera.position.x = 2;
+camera.position.z = 20;
+camera.position.y = 10;
+camera.position.x = 10;
 
 // Création du renderer
 const renderer = new THREE.WebGLRenderer();
@@ -30,7 +30,19 @@ const solMaterial = new THREE.MeshStandardMaterial({
 });
 const sol = new THREE.Mesh(solGeometry, solMaterial);
 sol.rotation.x = -Math.PI/2;
-sol.position.x = 2;
+sol.position.x = 0;
+
+// Soleil
+const soleilGeometry = new THREE.SphereGeometry();
+const soleilMaterial = new THREE.MeshPhongMaterial({
+    shininess: 70,
+    color: 0xdc7a25
+});
+
+const soleil = new THREE.Mesh(soleilGeometry, soleilMaterial);
+soleil.position.y = 10
+
+scene.add(soleil);
 
 // Ajouts
 scene.add(sol)
