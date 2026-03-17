@@ -17,6 +17,7 @@ const renderer = new THREE.WebGLRenderer();
 renderer.setSize(900, 800);
 document.body.append(renderer.domElement);
 
+
 //////////////////// CREATION DES Textures /////////////////////
 const textureLoader = new THREE.TextureLoader();
 const routeTexture = textureLoader.load('./textures/Road.jpg');
@@ -33,6 +34,7 @@ for (let i = 0; i < 5 ; i++) {
     const sol = new THREE.Mesh(solGeometry, solMaterial);
     sol.rotation.x = -Math.PI/2;
     sol.position.z = i*5 - 10;
+    sol.receiveShadow = true;
     scene.add(sol)
 }
 
@@ -47,6 +49,7 @@ const soleilMaterial = new THREE.MeshPhongMaterial({
 const soleil = new THREE.Mesh(soleilGeometry, soleilMaterial);
 soleil.position.y = 10
 soleil.position.x = -4;
+soleil.position.z = 5;
 
 
 // Batiment
@@ -58,6 +61,7 @@ for (let i = 0; i < 5; i++) {
             })
         );
     bat.position.y = 2*i + 1
+    bat.castShadow = true;
     scene.add(bat)
 }
 
@@ -82,14 +86,22 @@ const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
 
 // Directionnel
 const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
+directionalLight.position.set(soleil.position.x, soleil.position.y, 20);
 
 // Ajouts
 scene.add(ambientLight);
 scene.add(directionalLight)
 
-let avance = true
+
+//////////////////// CREATION DES OMBRES /////////////////////
+renderer.shadowMap.enabled = true;
+directionalLight.castShadow = true;
+voiture.castShadow = true;
+
+
 
 //////////////////// CREATION DES CONTROLES /////////////////////
+let avance = true
 const controls = new OrbitControls(camera, renderer.domElement);
 controls.update();
 function animate() {
